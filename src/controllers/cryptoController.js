@@ -59,29 +59,28 @@ const getNewListings = async (_req, res, next) => {
 
 const createCrypto = async (req, res, next) => {
   try {
-    const { name, symbol, price, image, change24h } = req.body;
+    const payload = Array.isArray(req.body) ? req.body : [req.body];
 
-    if (
-      !name ||
-      !symbol ||
-      price === undefined ||
-      !image ||
-      change24h === undefined
-    ) {
+    const invalid = payload.filter(
+      ({ name, symbol, price, image, change24h }) =>
+        !name || !symbol || price === undefined || !image || change24h === undefined
+    );
+
+    if (invalid.length > 0) {
       return res.status(400).json({
         success: false,
-        message: "Name, symbol, price, image, and 24h change are required",
+        message: "Each entry must include name, symbol, price, image, and change24h",
+        invalid,
       });
     }
 
-    const crypto = await Crypto.create(
-      normalizeCryptoPayload({ name, symbol, price, image, change24h })
-    );
+    const cryptos = await Crypto.insertMany(payload.map(normalizeCryptoPayload));
 
     res.status(201).json({
       success: true,
-      message: "Cryptocurrency created successfully",
-      data: crypto,
+      message: `${cryptos.length} cryptocurrency${cryptos.length > 1 ? "s" : ""} created successfully`,
+      count: cryptos.length,
+      data: cryptos,
     });
   } catch (error) {
     next(error);
