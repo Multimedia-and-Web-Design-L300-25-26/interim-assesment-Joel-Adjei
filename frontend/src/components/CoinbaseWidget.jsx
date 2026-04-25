@@ -318,7 +318,7 @@ const CoinbaseWidget = () => {
         </div>
 
         <div className="shrink-0 max-w-sm lg:max-w-full lg:flex-1/2 rounded-4xl overflow-hidden bg-gray-950 p-6">
-          <div className="flex items-center gap-1 p-6 pb-2">
+          <div className="flex items-center gap-1 p-6 pb-2 overflow-x-auto">
             {TABS.map((tab) => (
               <button
                 key={tab.id}
