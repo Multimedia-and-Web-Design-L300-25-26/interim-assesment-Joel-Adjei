@@ -176,6 +176,7 @@ const COIN_COLORS = [
 function mapApiCoin(coin, idx) {
   return {
     name: coin.name,
+    image: coin.image,
     ticker: coin.symbol,
     price: `$${Number(coin.price).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
     change: coin.change24h,
@@ -191,18 +192,29 @@ const TABS = [
 ];
 
 function CoinIcon({ coin }) {
+  console.log(coin.image);
+  const isImage =
+    typeof coin.image === "string" &&
+    (coin.image.startsWith("http") ||
+      coin.image.startsWith("/") ||
+      coin.image.startsWith("data:"));
   return (
     <div
-      className="flex items-center justify-center rounded-full text-white font-bold text-sm shrink-0"
+      className="flex items-center justify-center rounded-full text-white font-bold text-sm shrink-0 overflow-hidden"
       style={{
         width: 40,
         height: 40,
-        background: coin.color,
+        background: isImage ? "transparent" : coin.color,
         fontSize: 16,
-        boxShadow: `0 0 12px ${coin.color}55`,
       }}
     >
-      {coin.icon}
+      <img
+        src={isImage ? coin.image : undefined}
+        alt={coin.name}
+        width={40}
+        height={40}
+        className="rounded-full object-cover"
+      />
     </div>
   );
 }
