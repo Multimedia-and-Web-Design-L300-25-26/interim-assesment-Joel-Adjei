@@ -712,9 +712,12 @@ const Navbar = () => {
                 </button>
                 {user ? (
                   <>
-                    <span className="hidden md:block text-sm font-medium text-gray-700 truncate max-w-32">
+                    <Link
+                      to={"/account"}
+                      className="hidden md:block text-sm font-medium text-gray-700 truncate max-w-32"
+                    >
                       {user.name}
-                    </span>
+                    </Link>
                     <Button
                       variant={"secondary"}
                       className={"hidden md:block"}

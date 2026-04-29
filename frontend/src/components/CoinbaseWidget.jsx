@@ -255,23 +255,18 @@ const CoinbaseWidget = () => {
   const [visible, setVisible] = useState(true);
   const [displayTab, setDisplayTab] = useState("tradable");
 
-  const { data: allRes } = useAllCrypto();
+  const { data: allRes, isLoading: loadingAllRes } = useAllCrypto();
   const { data: gainersRes } = useCryptoGainers();
   const { data: newRes } = useCryptoNew();
 
   const data = {
-    tradable: (allRes?.data?.length
+    tradable: allRes?.data?.length
       ? allRes.data.map(mapApiCoin)
-      : FALLBACK_TRADABLE
-    ).slice(0, 6),
-    gainers: (gainersRes?.data?.length
+      : FALLBACK_TRADABLE,
+    gainers: gainersRes?.data?.length
       ? gainersRes.data.map(mapApiCoin)
-      : FALLBACK_GAINERS
-    ).slice(0, 6),
-    new: (newRes?.data?.length
-      ? newRes.data.map(mapApiCoin)
-      : FALLBACK_NEW
-    ).slice(0, 6),
+      : FALLBACK_GAINERS,
+    new: newRes?.data?.length ? newRes.data.map(mapApiCoin) : FALLBACK_NEW,
   };
 
   const currentData = data[displayTab] || [];

@@ -1,16 +1,29 @@
 import React, { useState } from "react";
 import Button from "../components/common/Button";
 import Input from "../components/common/Input";
+import { BiMenu, BiChevronRight, BiSearch } from "react-icons/bi";
+import { TbWorld } from "react-icons/tb";
+import { FaBitcoin, FaEthereum } from "react-icons/fa";
+import {
+  SiTether,
+  SiBinance,
+  SiAlgorand,
+  SiDogecoin,
+  SiCardano,
+} from "react-icons/si";
+import Card, {
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+} from "../components/common/Card";
 import { homeImg } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import CoinbaseWidget from "../components/CoinbaseWidget";
 import coinbaseLogo from "../assets/images/coinbaseLogoNav.svg";
-import { useAuth } from "../context/AuthContext";
 
 const Home = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
-  const goToSignup = () => navigate(user ? "/" : "/signup/");
   return (
     <>
       <section className="pt-26">
@@ -28,7 +41,10 @@ const Home = () => {
                 placeholder="satoshi@nakamoto.com"
                 className=" w-full rounded-md"
               />
-              <Button onClick={goToSignup} className={"rounded-full"}>
+              <Button
+                onClick={() => navigate("/signup/")}
+                className={"rounded-full"}
+              >
                 Sign up
               </Button>
             </div>
@@ -71,7 +87,7 @@ const Home = () => {
               across hundreds of markets.
             </p>
             <Button
-              onClick={goToSignup}
+              onClick={() => navigate("/signup/")}
               className="!bg-gray-900 !text-white hover:!bg-gray-700"
             >
               Start trading
@@ -101,7 +117,7 @@ const Home = () => {
               boosted rewards, priority support, and more.
             </p>
             <Button
-              onClick={goToSignup}
+              onClick={() => navigate("/signup/")}
               className="!bg-gray-900 !text-white hover:!bg-gray-700"
             >
               Claim free trial
@@ -142,7 +158,7 @@ const Home = () => {
               place.
             </p>
             <Button
-              onClick={goToSignup}
+              onClick={() => navigate("/signup/")}
               className="!bg-gray-900 !text-white hover:!bg-gray-700"
             >
               Learn more
@@ -236,7 +252,7 @@ const Home = () => {
                 className="w-full rounded-md"
               />
               <Button
-                onClick={goToSignup}
+                onClick={() => navigate("/signup/")}
                 className="rounded-full! sm:shrink-0"
               >
                 Sign up
