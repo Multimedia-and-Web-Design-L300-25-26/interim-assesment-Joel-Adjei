@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BsApple, BsGoogle } from "react-icons/bs";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 import { BsCheckCircleFill, BsCircle } from "react-icons/bs";
@@ -42,13 +42,7 @@ const passwordRules = [
 
 const Signup = () => {
   const navigate = useNavigate();
-  const { register, user, loading } = useAuth();
-
-  useEffect(() => {
-    if (!loading && user) {
-      navigate("/", { replace: true });
-    }
-  }, [user, loading, navigate]);
+  const { register } = useAuth();
   const [apiError, setApiError] = useState("");
   const [displayPolicy, setDisplayPolicy] = useState(true);
   const [step, setStep] = useState(1);

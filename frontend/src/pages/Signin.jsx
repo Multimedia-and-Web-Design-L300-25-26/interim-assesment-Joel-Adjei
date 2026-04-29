@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Input from "../components/common/Input";
 import Button from "../components/common/Button";
 import { GoPasskeyFill } from "react-icons/go";
@@ -20,13 +20,7 @@ const validationSchema = Yup.object({
 
 const Signin = () => {
   const navigate = useNavigate();
-  const { login, user, loading } = useAuth();
-
-  useEffect(() => {
-    if (!loading && user) {
-      navigate("/", { replace: true });
-    }
-  }, [user, loading, navigate]);
+  const { login } = useAuth();
   const [apiError, setApiError] = useState("");
   const [displayPolicy, setDisplayPolicy] = useState(true);
   const [next, setNext] = useState(false);
